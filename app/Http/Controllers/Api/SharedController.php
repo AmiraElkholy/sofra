@@ -44,12 +44,4 @@ class SharedController extends Controller
     }
 
 
-     public function notifications(Request $request) {
-        $notifications = $request->user()->notifications()->paginate(20);
-        return responseJson(1, 'success', $notifications);
-    }
-
-
-
-
 }

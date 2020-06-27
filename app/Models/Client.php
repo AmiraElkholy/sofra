@@ -16,8 +16,8 @@ class Client extends Authenticatable
 
     protected $table = 'clients';
     public $timestamps = true;
-    protected $fillable = array('name', 'email', 'phone', 'image', 'district_id', 'password');
-    protected $hidden = array('password', 'pin_code', 'api_token', 'rememberToken');
+    protected $fillable = array('name', 'email', 'phone', 'image', 'district_id', 'password', 'pin_code');
+    protected $hidden = array('password', 'pin_code', 'api_token', 'remember_token');
 
     public function district()
     {
@@ -47,6 +47,12 @@ class Client extends Authenticatable
     public function contacts()
     {
         return $this->morphMany('App\Models\Contact', 'contactable');
+    }
+
+
+
+    public function setPasswordAttribute($value) {
+        return $this->attributes['password'] = bcrypt($value);
     }
 
 }

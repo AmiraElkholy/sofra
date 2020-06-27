@@ -15,9 +15,9 @@ class Restaurant extends Authenticatable
 
     protected $table = 'restaurants';
     public $timestamps = true;
-    protected $fillable = array('name', 'email', 'delivery_time', 'district_id', 'password', 'minimum_charge', 'delivery_fees', 'phone', 'whatsapp', 'image', 'is_open');
-    protected $hidden = array('password', 'pin_code', 'api_token', 'rememberToken');
-    protected $appends = array('availability');
+    protected $fillable = array('name', 'email', 'delivery_time', 'district_id', 'password', 'minimum_charge', 'delivery_fees', 'phone', 'whatsapp', 'image', 'is_open', 'pin_code');
+    protected $hidden = array('password', 'pin_code', 'api_token', 'remember_token');
+    protected $appends = array('availability', 'rating');
 
     public function district()
     {
@@ -65,9 +65,18 @@ class Restaurant extends Authenticatable
     }
 
 
+
+    public function setPasswordAttribute($value) {
+        return $this->attributes['password'] = bcrypt($value);
+    }
+
     public function getAvailabilityAttribute() {
         // dd($this->is_open);
         return ($this->is_open) ? 'مفتوح' : 'مغلق';
+    }
+
+    public function getRatingAttribute() {
+        return $this->reviews()->avg('stars');
     }
 
 }

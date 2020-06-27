@@ -25,6 +25,7 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
 	Route::get('products', 'MainController@products');
 	Route::get('offers', 'MainController@offers');
 	Route::get('restaurant-info', 'MainController@restaurantInfo');
+	Route::post('new-review', 'MainController@newReview')->middleware('auth:api-client');
 
 	Route::get('about', 'MainController@about');
 
@@ -32,39 +33,53 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
 
 
 
-	//Autherization routes
+	//Auth routes for clients 
+	Route::post('client/register', 'ClientAuthController@register');
 	Route::post('client/login', 'ClientAuthController@login');
+	Route::post('client/reset-password', 'ClientAuthController@resetPassword');
+	Route::post('client/new-password', 'ClientAuthController@newPassword');
+	
+
+	//Auth routes for resturants
+	Route::post('restaurant/register', 'RestaurantAuthController@register');
+	Route::post('restaurant/login', 'RestaurantAuthController@login');
+	Route::post('restaurant/reset-password', 'RestaurantAuthController@resetPassword');
+	Route::post('restaurant/new-password', 'RestaurantAuthController@newPassword');
 
 
 
 
 
-	//Shared routes between clients and restaurants
+	//Shared Auth routes between clients and restaurants
 	Route::post('register-notification-token', 'SharedAuthController@registerNotificationToken');
 	Route::post('remove-notification-token', 'SharedAuthController@removeNotificationToken');
 	Route::post('test-notifications', 'SharedAuthController@testNotifications');
-	
-
-	Route::get('notifications', 'SharedController@notifications');
+	//Shared routes
 	Route::post('contact-us', 'SharedController@contactUs');
 
 
 
 
 
-	Route::group(['middleware' => 'auth:api-client'], function() {
+	Route::group(['middleware' => 'auth:api-client', 'namespace' => 'Client'], function() {
 		
-		Route::post('new-review', 'MainController@newReview');
-	
+		Route::get('client/profile', 'AuthController@profile');
+		Route::post('client/profile', 'AuthController@profile');
+		Route::get('notifications', 'MainController@notifications');
+		
+
 
 
 
 	});
 
 
-	Route::group(['middleware' => 'auth:api-restaurant'], function() {
+	Route::group(['middleware' => 'auth:api-restaurant', 'namespace' => 'Restaurant'], function() {
 		
-		
+		Route::get('restaurant/profile', 'AuthController@profile');
+		Route::post('restaurant/profile', 'AuthController@profile');
+		Route::get('notifications', 'MainController@notifications');
+
 	
 
 
