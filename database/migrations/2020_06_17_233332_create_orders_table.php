@@ -15,11 +15,13 @@ class CreateOrdersTable extends Migration {
 			$table->string('delivery_address');
 			$table->integer('client_id')->unsigned();
 			$table->integer('restaurant_id')->unsigned();
-			$table->decimal('sub_total', 18,2);
-			$table->decimal('delivery_fees', 8,2);
-			$table->decimal('total', 20,2);
+			$table->decimal('sub_total')->nullable();
+			$table->decimal('delivery_fees')->nullable();
+			$table->decimal('total')->nullable();
+			$table->decimal('commission')->nullable();
+			$table->decimal('net')->nullable();
 			$table->integer('payment_method_id')->unsigned();
-			$table->enum('state', array('pending', 'accepted', 'rejected', 'delivered', 'declined'));
+			$table->enum('state', array('pending', 'accepted', 'rejected', 'delivered', 'declined'))->default('pending');
 			$table->text('reason_for_rejection')->nullable();
 		});
 	}

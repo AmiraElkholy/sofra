@@ -13,8 +13,8 @@ class CreateProductsTable extends Migration {
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
 			$table->string('name');
 			$table->string('description');
-			$table->decimal('price', 8,2);
-			$table->decimal('offer_price', 8,2)->nullable();
+			$table->decimal('price');
+			$table->decimal('offer_price')->nullable();
 			$table->string('image');
 			$table->integer('category_id')->unsigned();
 		});

@@ -16,8 +16,8 @@ class CreateRestaurantsTable extends Migration {
 			$table->integer('delivery_time');
 			$table->integer('district_id')->unsigned();
 			$table->string('password');
-			$table->decimal('minimum_charge', 12,2);
-			$table->decimal('delivery_fees', 8,2);
+			$table->decimal('minimum_charge');
+			$table->decimal('delivery_fees');
 			$table->string('phone')->unique();
 			$table->string('whatsapp')->unique();
 			$table->string('image');

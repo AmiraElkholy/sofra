@@ -15,7 +15,7 @@ class CreateOrderProductTable extends Migration {
 			$table->integer('product_id')->unsigned();
 			$table->integer('quantity');
 			$table->text('special_notes');
-			$table->decimal('invoice_price', 8,2);
+			$table->decimal('invoice_price');
 		});
 	}
 

@@ -90,13 +90,13 @@ class MainController extends Controller
     public function reviews(Request $request) {
 
     	$rules = [
-			'restaurant_id' => 'required|exists:restaurants,id',
+			'restaurant_id' => 'required|integer|exists:restaurants,id',
 		];
 
-		$v = validator()->make($request->all(), $rules);
+		$validator = validator()->make($request->all(), $rules);
 
-		if($v->fails()) {
-			return responseJson(0, $v->errors()->first(), $v->errors());
+		if($validator->fails()) {
+			return responseJson(0, $validator->errors()->first(), $validator->errors());
 		}
 
 
@@ -110,42 +110,16 @@ class MainController extends Controller
     }
 
 
-
-    public function newReview(Request $request) {
-
-		$rules = [
-			'restaurant_id' => 'required|exists:restaurants,id',
-			'api_token' => 'required',
-			'stars' => 'required|integer|in:1,2,3,4,5',
-			'comment' => 'required|min:3'
-		];
-
-		$v = validator()->make($request->all(), $rules);
-
-		if($v->fails()) {
-			return responseJson(0, $v->errors()->first(), $v->errors());
-		}
-
-
-		$review = $request->user()->reviews()->create($request->all());
-    	
-
-    	return responseJson(1, 'success', $review);
-    }
-
-
-
-
     public function categories(Request $request) {
 
     	$rules = [
-			'restaurant_id' => 'required|exists:restaurants,id',
+			'restaurant_id' => 'required|integer|exists:restaurants,id',
 		];
 
-		$v = validator()->make($request->all(), $rules);
+		$validator = validator()->make($request->all(), $rules);
 
-		if($v->fails()) {
-			return responseJson(0, $v->errors()->first(), $v->errors());
+		if($validator->fails()) {
+			return responseJson(0, $validator->errors()->first(), $validator->errors());
 		}
 
 
@@ -161,7 +135,6 @@ class MainController extends Controller
 
 
     public function products(Request $request) {
-
     	$id = '';
 
 		if($request->has('restaurant_id')&&!empty($request->restaurant_id)) {
@@ -243,17 +216,38 @@ class MainController extends Controller
     }
 
 
+    public function product(Request $request) {
+        $rules = [
+            'product_id' => 'required|integer|exists:products,id',
+        ];
+
+        $validator = validator()->make($request->all(), $rules);
+
+        if($validator->fails()) {
+            return responseJson(0, $validator->errors()->first(), $validator->errors());
+        }
+
+        $product = Product::find($request->product_id);
+
+        if(!$product) {
+            return responseJson(0, "can't find product with this id");
+        }
+
+        return responseJson(1, 'success', $product);
+    }
+
+
 
     public function offers(Request $request) {
 
     	$rules = [
-			'restaurant_id' => 'required|exists:restaurants,id',
+			'restaurant_id' => 'required|integer|exists:restaurants,id',
 		];
 
-		$v = validator()->make($request->all(), $rules);
+		$validator = validator()->make($request->all(), $rules);
 
-		if($v->fails()) {
-			return responseJson(0, $v->errors()->first(), $v->errors());
+		if($validator->fails()) {
+			return responseJson(0, $validator->errors()->first(), $validator->errors());
 		}
 
 
@@ -271,13 +265,13 @@ class MainController extends Controller
     public function restaurantInfo(Request $request) {
 
     	$rules = [
-			'restaurant_id' => 'required|exists:restaurants,id',
+			'restaurant_id' => 'required||integer|exists:restaurants,id',
 		];
 
-		$v = validator()->make($request->all(), $rules);
+		$validator = validator()->make($request->all(), $rules);
 
-		if($v->fails()) {
-			return responseJson(0, $v->errors()->first(), $v->errors());
+		if($validator->fails()) {
+			return responseJson(0, $validator->errors()->first(), $validator->errors());
 		}
 
 

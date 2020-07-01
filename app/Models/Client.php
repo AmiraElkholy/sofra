@@ -50,7 +50,6 @@ class Client extends Authenticatable
     }
 
 
-
     public function setPasswordAttribute($value) {
         return $this->attributes['password'] = bcrypt($value);
     }

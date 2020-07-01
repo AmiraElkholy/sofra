@@ -11,7 +11,7 @@ class CreateNotificationsTable extends Migration {
 			$table->increments('id');
 			$table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
-			$table->integer('order_id')->unsigned();
+			$table->integer('order_id')->unsigned()->nullable();
 			$table->string('title');
 			$table->text('content');
 			$table->integer('notifiable_id')->unsigned();
