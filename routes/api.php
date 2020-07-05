@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
-	//Unauthorized routes 
+	//Non authorized routes 
 	Route::get('cities', 'MainController@cities');
 	Route::get('districts', 'MainController@districts');
 	Route::get('restaurants', 'MainController@restaurants');
@@ -25,7 +25,8 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
 	Route::get('products', 'MainController@products');
 	Route::get('offers', 'MainController@offers');
 	Route::get('restaurant-info', 'MainController@restaurantInfo');
-
+	Route::get('app-settings', 'MainController@appSettings');
+	Route::get('app-settings', 'MainController@appSettings');
 	Route::get('about', 'MainController@about');
 
 
@@ -106,6 +107,9 @@ Route::group(['prefix' => 'v1', 'namespace' => 'Api'], function() {
 			Route::get('restaurant/orders/{order_id}', 'OrderController@show');
 			Route::get('restaurant/orders/{order_id}/reject-order', 'OrderController@rejectOrder');
 			Route::get('restaurant/orders/{order_id}/confirm-delivery', 'OrderController@confirmDelivery');
+			//commissions
+			Route::get('restaurant-commissions', 'MainController@restaurantCommissions');
+
 
 
 		});

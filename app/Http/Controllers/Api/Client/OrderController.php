@@ -194,7 +194,7 @@ class OrderController extends Controller
             try {
                 DB::beginTransaction();
 
-                $order->update(['state' => 'canceled']);
+                $order->update(['state' => 'declined']);
 
                 /** ** ** Send Notifications To Restaurant ** ** **/
                 $notification = $restaurant->notifications()->create([

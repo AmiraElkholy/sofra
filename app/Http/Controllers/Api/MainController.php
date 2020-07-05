@@ -18,10 +18,6 @@ use App\Models\Review;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Offer;
-
-
-
-
 use App\Models\AppSetting;
 
 
@@ -289,7 +285,10 @@ class MainController extends Controller
 
     }
 
-
+    public function appSettings() {
+        $record = AppSetting::first();
+        return responseJson(1, 'success', $record);
+    }
 
 
     public function about() {
