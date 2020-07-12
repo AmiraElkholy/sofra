@@ -13,10 +13,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Auth::routes();
+
+// Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes(['verify' => true]);
+
+
+Route::get('/', 'HomeController@index')->middleware(['auth:web', 'verified']);
+Route::get('/home', 'HomeController@index')->middleware(['auth:web', 'verified']);
+Route::get('/dashboard', 'HomeController@index')->middleware(['auth:web', 'verified']);
+Route::get('/admin', 'HomeController@index')->middleware(['auth:web', 'verified']);
+
+
+Route::group(['middleware' => ['auth:web'], 'prefix' => 'admin'], function() { 
+	Route::resource('cities', 'CityController');
+	Route::resource('districts', 'DistrictController');
+
+
+
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+
+Route::resource('categories', 'CategoryController');

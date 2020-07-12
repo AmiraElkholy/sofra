@@ -83,7 +83,7 @@ class OrderController extends Controller
                 /** ** ** Send Notifications To User ** ** **/
                 $notification = $client->notifications()->create([
                     'title' => 'تم رفض الطلب',
-                    'content' => 'تم رفض طلب الطعام رقم '.$order_id.' من المطعم '.$request->user()->name.' سبب الرفض: '$request->reason_for_rejection,
+                    'content' => 'تم رفض طلب الطعام رقم '.$order_id.' من المطعم '.$request->user()->name.' سبب الرفض: '.$request->reason_for_rejection,
                     'order_id' => $order->id,
                 ]);
 

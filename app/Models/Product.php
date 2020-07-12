@@ -10,7 +10,7 @@ class Product extends Model
     protected $table = 'products';
     public $timestamps = true;
     protected $fillable = array('name', 'description', 'price', 'offer_price', 'image', 'category_id');
-    protected $appends = array('has_offer');
+    protected $appends = array('has_offer', 'current_price');
 
 
     public function category()
@@ -24,7 +24,11 @@ class Product extends Model
     }
 
     public function getHasOfferAttribute() {
-        return ($this->offer_price < $this->price);
+        return $this->offer_price ? ($this->offer_price < $this->price) : false;
+    }
+
+    public function getCurrentPriceAttribute() {
+        return $this->has_offer ? $this->offer_price : $this->price;
     }
 
 }

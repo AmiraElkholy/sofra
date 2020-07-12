@@ -76,7 +76,7 @@ class OrderController extends Controller
     			$productWithPivotAttributes = [
     				$product_item['product_id'] => [
     					'quantity' => $product_item['quantity'],
-    					'invoice_price'	   => $product->price,
+    					'invoice_price'	   => $product->current_price,
     					'special_notes'	   => isset($product_item['note']) ? $product_item['note'] : ''
     				]
     			];
@@ -84,7 +84,7 @@ class OrderController extends Controller
 
     			$order->products()->attach($productWithPivotAttributes);    
 
-    			$cost += $product_item['quantity'] * $product->price;		
+    			$cost += $product_item['quantity'] * $product->current_price;		
 
     		}
 

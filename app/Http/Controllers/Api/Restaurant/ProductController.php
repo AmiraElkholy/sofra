@@ -60,7 +60,7 @@ class ProductController extends Controller
             'name'          => 'required|min:3', 
             'description'   => 'required|min:10',
             'price'         => 'required|numeric',
-            'offer_price'   => 'required|numeric|less_than_or_equal_field:price',
+            'offer_price'   => 'numeric|nullable|less_than_or_equal_field:price',
             'image'         => 'required'
         ];
 
@@ -166,7 +166,7 @@ class ProductController extends Controller
             'name'          => 'min:3', 
             'description'   => 'min:10',
             'price'         => 'numeric',
-            'offer_price'   => 'numeric|less_than_or_equal_field:price',
+            'offer_price'   => 'numeric|nullable|less_than_or_equal_field:price',
             'image'         => ''
         ];
 
